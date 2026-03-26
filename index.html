@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sun Tech Innovations</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%23CC2200'/><text x='50' y='68' font-family='Arial' font-weight='900' font-size='42' fill='white' text-anchor='middle'>ST</text></svg>"/>
+<link rel="apple-touch-icon" href="https://i.ibb.co/M5PkkSD5/0c2932a5-8f21-44b1-9703-c07bc0a08f35.png"/>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Segoe UI',sans-serif;color:#1a1a2e;background:#fff;}
+  a{text-decoration:none;color:inherit;}
+
+  /* NAV */
+  nav{position:fixed;top:0;width:100%;background:#fff;box-shadow:0 2px 12px rgba(0,0,0,.07);z-index:100;padding:0 5%;}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:70px;}
+  .logo{display:flex;align-items:center;gap:10px;cursor:pointer;}
+  .nav-links{display:flex;gap:24px;font-size:.9rem;font-weight:500;color:#444;}
+  .nav-links a{cursor:pointer;}
+  .nav-links a:hover{color:#1565c0;}
+  .nav-cta{background:#1565c0;color:#fff;padding:9px 22px;border-radius:6px;font-size:.9rem;font-weight:600;cursor:pointer;}
+  .nav-cta:hover{background:#0d47a1;}
+
+  /* PAGES */
+  .page{display:none;}
+  .page.active{display:block;}
+
+  /* SECTION COMMON */
+  section{padding:80px 5%;}
+  .section-inner{max-width:1100px;margin:auto;}
+  .section-label{font-size:.78rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;}
+  .section-label.blue{color:#1565c0;}
+  .section-label.teal{color:#00897b;}
+  .section-title{font-size:2rem;font-weight:800;color:#0d1b4b;margin-bottom:14px;}
+  .section-sub{font-size:1rem;color:#666;max-width:580px;line-height:1.7;margin-bottom:44px;}
+
+  /* BUTTONS */
+  .btn-blue{background:#1565c0;color:#fff;padding:13px 28px;border-radius:7px;font-weight:600;font-size:.95rem;transition:.2s;border:none;cursor:pointer;display:inline-block;}
+  .btn-blue:hover{background:#0d47a1;transform:translateY(-1px);}
+  .btn-outline-blue{border:2px solid #1565c0;color:#1565c0;padding:11px 26px;border-radius:7px;font-weight:600;font-size:.95rem;transition:.2s;background:transparent;cursor:pointer;display:inline-block;}
+  .btn-teal{background:#00897b;color:#fff;padding:13px 28px;border-radius:7px;font-weight:600;font-size:.95rem;transition:.2s;border:none;cursor:pointer;display:inline-block;}
+  .btn-teal:hover{background:#00695c;transform:translateY(-1px);}
+  .btn-outline-teal{border:2px solid #00897b;color:#00897b;padding:11px 26px;border-radius:7px;font-weight:600;font-size:.95rem;transition:.2s;background:transparent;cursor:pointer;display:inline-block;}
+  .btn-outline-teal:hover{background:#e0f2f1;}
+
+  /* WHATSAPP FLOATING BUTTON */
+  .whatsapp-float{position:fixed;bottom:30px;right:30px;z-index:999;display:flex;flex-direction:column;align-items:flex-end;gap:10px;}
+  .whatsapp-btn{width:58px;height:58px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.4);cursor:pointer;transition:.3s;text-decoration:none;}
+  .whatsapp-btn:hover{transform:scale(1.1);}
+  .whatsapp-btn svg{width:32px;height:32px;fill:#fff;}
+  .call-btn{width:58px;height:58px;background:#1565c0;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(21,101,192,.4);cursor:pointer;transition:.3s;text-decoration:none;font-size:1.5rem;}
+  .call-btn:hover{transform:scale(1.1);}
+
+  /* SHARED STYLES */
+  .why-dark{background:#0d1b4b;color:#fff;}
+  .why-dark .section-title{color:#fff;}
+  .why-dark .section-sub{color:#aab4cc;}
+  .why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;}
+  .why-card{background:rgba(255,255,255,.06);border-radius:12px;padding:26px;border:1px solid rgba(255,255,255,.1);}
+  .why-card .icon{font-size:1.8rem;margin-bottom:12px;}
+  .why-card h4{font-size:1rem;font-weight:700;margin-bottom:6px;}
+  .why-card p{font-size:.84rem;color:#aab4cc;line-height:1.6;}
+  .ind-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:20px;}
+  .ind-card{border-radius:12px;padding:28px 20px;text-align:center;box-shadow:0 2px 12px rgba(21,101,192,.08);background:#fff;}
+  .ind-card .icon{font-size:2.2rem;margin-bottom:12px;}
+  .ind-card h4{font-size:.95rem;font-weight:700;color:#0d1b4b;margin-bottom:6px;}
+  .ind-card p{font-size:.82rem;color:#666;line-height:1.5;}
+  .steps{display:flex;flex-direction:column;}
+  .step{display:flex;gap:28px;align-items:flex-start;padding:28px 0;border-bottom:1px solid #e0e8f8;}
+  .step:last-child{border-bottom:none;}
+  .step-num{min-width:52px;height:52px;background:#1565c0;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:800;}
+  .step-content h4{font-size:1rem;font-weight:700;color:#0d1b4b;margin-bottom:6px;}
+  .step-content p{font-size:.88rem;color:#666;line-height:1.7;}
+  .cta-blue{background:linear-gradient(135deg,#1565c0,#0d47a1);color:#fff;text-align:center;padding:80px 5%;}
+  .cta-blue h2{font-size:2.2rem;font-weight:800;margin-bottom:14px;}
+  .cta-blue p{font-size:1rem;opacity:.85;max-width:520px;margin:0 auto 36px;line-height:1.7;}
+  .cta-form{background:rgba(255,255,255,.1);border-radius:16px;padding:36px;max-width:560px;margin:0 auto;border:1px solid rgba(255,255,255,.2);}
+  .cta-form .form-row label{color:rgba(255,255,255,.85);}
+  .cta-form .form-row input,.cta-form .form-row select,.cta-form .form-row textarea{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.25);color:#fff;}
+  .cta-form .form-row input::placeholder,.cta-form .form-row textarea::placeholder{color:rgba(255,255,255,.55);}
+  .cta-form .form-row select option{color:#000;}
+  .submit-btn-white{width:100%;background:#fff;color:#1565c0;padding:13px;border:none;border-radius:7px;font-size:.95rem;font-weight:700;cursor:pointer;}
+  .form-row{margin-bottom:18px;}
+  .form-row label{display:block;font-size:.85rem;font-weight:600;color:#333;margin-bottom:6px;}
+  .form-row input,.form-row select,.form-row textarea{width:100%;padding:11px 14px;border:1.5px solid #dde3f0;border-radius:7px;font-size:.9rem;font-family:inherit;outline:none;transition:.2s;background:#fff;}
+  .form-row input:focus,.form-row select:focus,.form-row textarea:focus{border-color:#1565c0;}
+  .form-row textarea{height:100px;resize:vertical;}
+  .submit-btn-blue{width:100%;background:#1565c0;color:#fff;padding:13px;border:none;border-radius:7px;font-size:.95rem;font-weight:700;cursor:pointer;}
+
+  /* FOOTER */
+  footer{background:linear-gradient(135deg,#0a1628,#0d2147);color:#aab4cc;padding:50px 5% 24px;}
+  .footer-inner{max-width:1100px;margin:auto;}
+  .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px;}
+  .footer-brand .footer-logo{font-size:1.2rem;font-weight:900;color:#fff;margin-bottom:12px;display:flex;align-items:center;gap:10px;}
+  .footer-brand p{font-size:.85rem;line-height:1.7;color:#aab4cc;max-width:260px;}
+  .footer-col h4{font-size:.95rem;font-weight:700;color:#fff;margin-bottom:16px;}
+  .footer-col a{display:block;font-size:.85rem;color:#aab4cc;margin-bottom:10px;cursor:pointer;transition:.2s;}
+  .footer-col a:hover{color:#fff;}
+  .footer-contact{font-size:.85rem;color:#aab4cc;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+  .footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+  .footer-bottom p{font-size:.82rem;}
+  .social-links{display:flex;gap:12px;}
+  .social-btn{width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:1rem;cursor:pointer;transition:.2s;border:1px solid rgba(255,255,255,.1);}
+  .social-btn:hover{background:rgba(255,255,255,.15);}
+
+  /* ERP/HOTEL card styles */
+  .cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;position:relative;z-index:1;}
+  .feat-card{border-radius:14px;padding:26px;transition:.3s;}
+  .feat-card:hover{transform:translateY(-4px);}
+  .feat-card .icon{font-size:2rem;margin-bottom:14px;width:52px;height:52px;border-radius:12px;display:flex;align-items:center;justify-content:center;}
+  .feat-card h4{font-size:1rem;font-weight:700;margin-bottom:8px;}
+  .feat-card p{font-size:.85rem;line-height:1.6;}
+  .feat-card.erp-1{background:linear-gradient(135deg,#1565c0,#1976d2);color:#fff;}
+  .feat-card.erp-1 .icon,.feat-card.erp-2 .icon,.feat-card.erp-3 .icon,.feat-card.erp-4 .icon,.feat-card.erp-5 .icon,.feat-card.erp-6 .icon{background:rgba(255,255,255,.15);}
+  .feat-card.erp-1 p,.feat-card.erp-2 p,.feat-card.erp-3 p,.feat-card.erp-4 p,.feat-card.erp-5 p,.feat-card.erp-6 p{color:rgba(255,255,255,.8);}
+  .feat-card.erp-2{background:linear-gradient(135deg,#00695c,#00897b);color:#fff;}
+  .feat-card.erp-3{background:linear-gradient(135deg,#6a1b9a,#7b1fa2);color:#fff;}
+  .feat-card.erp-4{background:linear-gradient(135deg,#e65100,#f57c00);color:#fff;}
+  .feat-card.erp-5{background:linear-gradient(135deg,#c62828,#d32f2f);color:#fff;}
+  .feat-card.erp-6{background:linear-gradient(135deg,#0277bd,#0288d1);color:#fff;}
+  /* Hotel PMS card colors */
+  .feat-card.pms-1{background:linear-gradient(135deg,#00695c,#00897b);color:#fff;}
+  .feat-card.pms-1 .icon,.feat-card.pms-2 .icon,.feat-card.pms-3 .icon,.feat-card.pms-4 .icon,.feat-card.pms-5 .icon,.feat-card.pms-6 .icon,.feat-card.pms-7 .icon,.feat-card.pms-8 .icon{background:rgba(255,255,255,.15);}
+  .feat-card.pms-1 p,.feat-card.pms-2 p,.feat-card.pms-3 p,.feat-card.pms-4 p,.feat-card.pms-5 p,.feat-card.pms-6 p,.feat-card.pms-7 p,.feat-card.pms-8 p{color:rgba(255,255,255,.8);}
+  .feat-card.pms-2{background:linear-gradient(135deg,#1565c0,#1976d2);color:#fff;}
+  .feat-card.pms-3{background:linear-gradient(135deg,#6a1b9a,#7b1fa2);color:#fff;}
+  .feat-card.pms-4{background:linear-gradient(135deg,#e65100,#f57c00);color:#fff;}
+  .feat-card.pms-5{background:linear-gradient(135deg,#c62828,#d32f2f);color:#fff;}
+  .feat-card.pms-6{background:linear-gradient(135deg,#0277bd,#0288d1);color:#fff;}
+  .feat-card.pms-7{background:linear-gradient(135deg,#2e7d32,#388e3c);color:#fff;}
+  .feat-card.pms-8{background:linear-gradient(135deg,#4a148c,#6a1b9a);color:#fff;}
+
+  /* HOME */
+  #home .hero{min-height:100vh;display:flex;align-items:center;padding:100px 5% 60px;background:linear-gradient(135deg,#0a1628 0%,#0d2147 50%,#0a1628 100%);position:relative;overflow:hidden;}
+  #home .hero::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background-image:radial-gradient(circle at 20% 30%,rgba(21,101,192,.15) 0%,transparent 50%),radial-gradient(circle at 80% 70%,rgba(245,124,0,.1) 0%,transparent 50%);pointer-events:none;}
+  #home .hero-inner{max-width:1100px;margin:auto;display:flex;align-items:center;gap:60px;width:100%;position:relative;z-index:1;}
+  .badge{display:inline-block;font-size:.8rem;font-weight:700;padding:5px 14px;border-radius:20px;margin-bottom:18px;letter-spacing:.5px;}
+  .badge.blue{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.2);}
+  #home .hero-text h1{font-size:2.8rem;font-weight:800;line-height:1.2;margin-bottom:18px;color:#fff;}
+  #home .hero-text h1 span{color:#f57c00;}
+  #home .hero-text p{font-size:1.05rem;color:rgba(255,255,255,.75);line-height:1.7;margin-bottom:32px;max-width:480px;}
+  .hero-btns{display:flex;gap:14px;flex-wrap:wrap;}
+  .hero-visual{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:420px;}
+  .hero-card{background:rgba(255,255,255,.07);border-radius:12px;padding:22px;border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(10px);}
+  .hero-card .icon{font-size:2rem;margin-bottom:10px;}
+  .hero-card h4{font-size:.95rem;font-weight:700;margin-bottom:4px;color:#fff;}
+  .hero-card p{font-size:.8rem;color:rgba(255,255,255,.6);}
+  .hero-card.blue{border-top:3px solid #1565c0;}
+  .hero-card.teal{border-top:3px solid #00897b;}
+  .hero-grid{position:absolute;top:0;left:0;right:0;bottom:0;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;}
+  .hero-circle{position:absolute;border-radius:50%;border:1px solid rgba(21,101,192,.2);pointer-events:none;}
+  .hero-circle-1{width:300px;height:300px;top:-100px;right:10%;animation:pulse 4s ease-in-out infinite;}
+  .hero-circle-2{width:500px;height:500px;top:-200px;right:5%;animation:pulse 6s ease-in-out infinite;}
+  .hero-circle-3{width:200px;height:200px;bottom:50px;left:5%;animation:pulse 5s ease-in-out infinite;}
+  @keyframes pulse{0%,100%{opacity:.3;transform:scale(1);}50%{opacity:.6;transform:scale(1.05);}}
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center;}
+  .about-stats{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  .stat-box{background:#f7f9ff;border-radius:10px;padding:22px;text-align:center;}
+  .stat-box .num{font-size:2rem;font-weight:800;color:#1565c0;}
+  .stat-box p{font-size:.85rem;color:#666;margin-top:4px;}
+  .erp-div{background:linear-gradient(135deg,#0a1628 0%,#0d2147 60%,#0a1628 100%);position:relative;overflow:hidden;}
+  .erp-div::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;}
+  .erp-div .section-title{color:#fff;}
+  .erp-div .section-sub{color:rgba(255,255,255,.7);}
+  .erp-div .section-label{color:#7fa8ff !important;}
+  .pms-div{background:linear-gradient(135deg,#003d38 0%,#00574f 60%,#003d38 100%);position:relative;overflow:hidden;}
+  .pms-div::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;}
+  .pms-div .section-title{color:#fff;}
+  .pms-div .section-sub{color:rgba(255,255,255,.7);}
+  .pms-div .section-label{color:#80cbc4 !important;}
+  .div-tag{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:20px;font-size:.82rem;font-weight:700;margin-bottom:16px;}
+  .div-tag.blue{background:#ddeaff;color:#1565c0;}
+  .div-tag.teal{background:rgba(255,255,255,.1);color:#80cbc4;border:1px solid rgba(255,255,255,.15);}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;}
+  .contact-info h3{font-size:1.5rem;font-weight:800;color:#0d1b4b;margin-bottom:12px;}
+  .contact-info p{color:#666;line-height:1.7;margin-bottom:20px;}
+  .contact-detail{display:flex;align-items:center;gap:12px;margin-bottom:16px;font-size:.9rem;color:#444;}
+  .contact-detail .ci{width:36px;height:36px;border-radius:8px;background:#f0f4ff;display:flex;align-items:center;justify-content:center;font-size:1rem;}
+  .contact-form{background:#f7f9ff;border-radius:14px;padding:32px;}
+
+  /* HOTEL PMS PAGE */
+  #pms-page .hero{min-height:100vh;display:flex;align-items:center;padding:100px 5% 60px;background:linear-gradient(135deg,#003d38 0%,#00574f 50%,#003d38 100%);position:relative;overflow:hidden;}
+  #pms-page .hero::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background-image:radial-gradient(circle at 20% 30%,rgba(0,137,123,.2) 0%,transparent 50%),radial-gradient(circle at 80% 70%,rgba(0,188,212,.1) 0%,transparent 50%);pointer-events:none;}
+  #pms-page .hero-inner{max-width:1100px;margin:auto;display:flex;align-items:center;gap:60px;width:100%;position:relative;z-index:1;}
+  .hero-visual-pms{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:420px;}
+  .hero-card-pms{background:rgba(255,255,255,.08);border-radius:12px;padding:22px;border:1px solid rgba(255,255,255,.15);backdrop-filter:blur(10px);}
+  .hero-card-pms .icon{font-size:2rem;margin-bottom:10px;}
+  .hero-card-pms h4{font-size:.92rem;font-weight:700;margin-bottom:4px;color:#fff;}
+  .hero-card-pms p{font-size:.78rem;color:rgba(255,255,255,.6);}
+  .hero-card-pms.t1{border-top:3px solid #00897b;}
+  .hero-card-pms.t2{border-top:3px solid #00bcd4;}
+  .mod-grid-pms{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px;}
+  .mod-card-pms{border-radius:14px;padding:28px;border:1.5px solid #b2dfdb;transition:.2s;}
+  .mod-card-pms:hover{box-shadow:0 6px 24px rgba(0,137,123,.15);border-color:#00897b;transform:translateY(-2px);}
+  .mod-header-pms{display:flex;align-items:center;gap:14px;margin-bottom:14px;}
+  .mod-icon-pms{width:46px;height:46px;background:#e0f2f1;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;}
+  .mod-header-pms h4{font-size:1rem;font-weight:700;color:#0d1b4b;}
+  .mod-card-pms p{font-size:.85rem;color:#666;line-height:1.6;margin-bottom:12px;}
+  .mod-tags-pms{display:flex;flex-wrap:wrap;gap:6px;}
+  .tag-pms{background:#e0f2f1;color:#00695c;font-size:.75rem;font-weight:600;padding:3px 10px;border-radius:20px;}
+  .adv-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;}
+  .adv-card{background:#fff;border-radius:12px;padding:24px;border-left:4px solid #00897b;box-shadow:0 2px 12px rgba(0,0,0,.06);}
+  .adv-card .icon{font-size:1.6rem;margin-bottom:10px;}
+  .adv-card h4{font-size:.95rem;font-weight:700;color:#0d1b4b;margin-bottom:6px;}
+  .adv-card p{font-size:.84rem;color:#666;line-height:1.6;}
+  .cta-teal{background:linear-gradient(135deg,#00695c,#00897b);color:#fff;text-align:center;padding:80px 5%;}
+  .cta-teal h2{font-size:2.2rem;font-weight:800;margin-bottom:14px;}
+  .cta-teal p{font-size:1rem;opacity:.88;max-width:520px;margin:0 auto 36px;line-height:1.7;}
+  .cta-form-teal{background:rgba(255,255,255,.1);border-radius:16px;padding:36px;max-width:560px;margin:0 auto;border:1px solid rgba(255,255,255,.2);}
+  .cta-form-teal .form-row label{color:rgba(255,255,255,.85);}
+  .cta-form-teal .form-row input,.cta-form-teal .form-row select,.cta-form-teal .form-row textarea{background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.25);color:#fff;}
+  .cta-form-teal .form-row input::placeholder,.cta-form-teal .form-row textarea::placeholder{color:rgba(255,255,255,.55);}
+  .cta-form-teal .form-row select option{color:#000;}
+  .submit-btn-white-teal{width:100%;background:#fff;color:#00695c;padding:13px;border:none;border-radius:7px;font-size:.95rem;font-weight:700;cursor:pointer;}
+  .submit-btn-white-teal:hover{background:#e0f2f1;}
+  .why-teal{background:#003d38;color:#fff;}
+  .why-teal .section-title{color:#fff;}
+  .why-teal .section-sub{color:#80cbc4;}
+  .why-card-teal{background:rgba(255,255,255,.06);border-radius:12px;padding:26px;border:1px solid rgba(255,255,255,.1);}
+  .why-card-teal .icon{font-size:1.8rem;margin-bottom:12px;}
+  .why-card-teal h4{font-size:.95rem;font-weight:700;margin-bottom:6px;color:#fff;}
+  .why-card-teal p{font-size:.84rem;color:#80cbc4;line-height:1.6;}
+
+  @media(max-width:768px){
+    .hero-visual,.hero-visual-pms{display:none;}
+    #home .hero-text h1{font-size:1.9rem;}
+    .about-grid,.contact-grid,.footer-grid{grid-template-columns:1fr;}
+    nav .nav-links{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<!-- WHATSAPP & CALL FLOATING BUTTONS -->
+<div class="whatsapp-float">
+  <a class="call-btn" href="tel:+918438571741" title="Call Us">📞</a>
+  <a class="whatsapp-btn" href="https://wa.me/918438571741?text=Hello%20Sun%20Tech%20Innovations%2C%20I%20would%20like%20to%20know%20more%20about%20your%20products." target="_blank">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="logo" onclick="showPage('home')">
+      <img src="https://i.ibb.co/M5PkkSD5/0c2932a5-8f21-44b1-9703-c07bc0a08f35.png" alt="Sun Tech Innovations" style="height:64px;width:auto;object-fit:contain;" onerror="this.style.display='none'"/>
+      <div style="display:flex;flex-direction:column;justify-content:center;">
+        <span style="font-size:1.2rem;font-weight:900;letter-spacing:1px;color:#CC2200;line-height:1.1;">SUN TECH</span>
+        <span style="font-size:.75rem;font-weight:600;letter-spacing:3px;color:#f57c00;">INNOVATIONS</span>
+      </div>
+    </div>
+    <div class="nav-links">
+      <a onclick="showPage('home')">Home</a>
+      <a onclick="showPage('erp')">ERP Software</a>
+      <a onclick="showPage('pms')">Hotel PMS</a>
+      <a onclick="showPage('home');setTimeout(()=>document.getElementById('contact-section').scrollIntoView({behavior:'smooth'}),100)">Contact</a>
+    </div>
+    <a class="nav-cta" onclick="showPage('home');setTimeout(()=>document.getElementById('contact-section').scrollIntoView({behavior:'smooth'}),100)">Get a Free Demo</a>
+  </div>
+</nav>
+
+<!-- ==================== HOME PAGE ==================== -->
+<div id="home" class="page active">
+  <section class="hero">
+    <div class="hero-grid"></div>
+    <div class="hero-circle hero-circle-1"></div>
+    <div class="hero-circle hero-circle-2"></div>
+    <div class="hero-circle hero-circle-3"></div>
+    <div class="hero-inner">
+      <div class="hero-text">
+        <div class="badge blue">🌟 Trusted by SMEs & MSMEs Across India</div>
+        <h1>Smart Solutions for <span>Growing Businesses</span></h1>
+        <p>Sun Tech Innovations delivers cutting-edge ERP software and Hotel PMS — purpose-built to help businesses scale faster, operate smarter, and compete better.</p>
+        <div class="hero-btns">
+          <a class="btn-blue" onclick="showPage('erp')">Explore ERP Software</a>
+          <a style="border:2px solid rgba(255,255,255,.4);color:#fff;padding:11px 26px;border-radius:7px;font-weight:600;font-size:.95rem;cursor:pointer;" onclick="showPage('pms')">Explore Hotel PMS</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-card blue"><div class="icon">🖥️</div><h4>ERP Software</h4><p>End-to-end business management</p></div>
+        <div class="hero-card teal"><div class="icon">🏨</div><h4>Hotel PMS</h4><p>Complete hotel management</p></div>
+        <div class="hero-card blue"><div class="icon">📊</div><h4>Live Analytics</h4><p>Real-time business insights</p></div>
+        <div class="hero-card teal"><div class="icon">☁️</div><h4>Cloud Based</h4><p>Access anywhere, anytime</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section style="background:#fff;">
+    <div class="section-inner">
+      <div class="about-grid">
+        <div>
+          <div class="section-label blue">About Us</div>
+          <h2 class="section-title">Technology That Works for Your Business</h2>
+          <p style="color:#666;line-height:1.8;margin-bottom:20px;">Sun Tech Innovations was founded with a singular mission — to bring enterprise-grade technology within reach of every SME, MSME, and hospitality business in India. We understand the unique challenges of growing businesses and design our solutions accordingly.</p>
+          <p style="color:#666;line-height:1.8;">With two dedicated software divisions — ERP Software and Hotel PMS — we are a one-stop technology partner for businesses looking to modernize and grow.</p>
+        </div>
+        <div class="about-stats">
+          <div class="stat-box"><div class="num">500+</div><p>Businesses Served</p></div>
+          <div class="stat-box"><div class="num">20+</div><p>Years of Experience</p></div>
+          <div class="stat-box"><div class="num">98%</div><p>Customer Satisfaction</p></div>
+          <div class="stat-box"><div class="num">2</div><p>Software Divisions</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ERP DIVISION -->
+  <section class="erp-div">
+    <div class="section-inner" style="position:relative;z-index:1;">
+      <div class="div-tag blue">🖥️ Division 1</div>
+      <div class="section-label blue">Sun Tech ERP</div>
+      <h2 class="section-title">ERP Software for Modern SMEs</h2>
+      <p class="section-sub">A complete, integrated ERP platform — ERP, CRM, HRMS & Warehouse Management — built specifically for SMEs and MSMEs.</p>
+      <div class="cards-grid">
+        <div class="feat-card erp-1"><div class="icon">🖥️</div><h4>ERP Software</h4><p>Sales, billing, inventory, purchase, accounts & GST in one platform.</p></div>
+        <div class="feat-card erp-2"><div class="icon">🤝</div><h4>CRM Software</h4><p>Lead management, sales pipeline, follow-ups & customer history.</p></div>
+        <div class="feat-card erp-3"><div class="icon">👥</div><h4>HRMS Software</h4><p>Employee database, attendance, payroll & performance tracking.</p></div>
+        <div class="feat-card erp-4"><div class="icon">🏭</div><h4>Warehouse Management</h4><p>Real-time stock tracking, barcode integration & order fulfillment.</p></div>
+        <div class="feat-card erp-5"><div class="icon">🇮🇳</div><h4>GST Compliant</h4><p>Built for Indian compliance — e-invoice, e-way bill & GST returns.</p></div>
+        <div class="feat-card erp-6"><div class="icon">📊</div><h4>Reports & Analytics</h4><p>200+ reports and real-time dashboards for smarter decisions.</p></div>
+      </div>
+      <div style="margin-top:36px;text-align:center;"><a class="btn-blue" onclick="showPage('erp')">Explore ERP Solutions →</a></div>
+    </div>
+  </section>
+
+  <!-- HOTEL PMS DIVISION -->
+  <section class="pms-div">
+    <div class="section-inner" style="position:relative;z-index:1;">
+      <div class="div-tag teal">🏨 Division 2</div>
+      <div class="section-label teal">Sun Tech Hotel PMS</div>
+      <h2 class="section-title">Complete Hotel Management Software</h2>
+      <p class="section-sub">A cloud-based, AI-integrated Hotel PMS covering front office, housekeeping, POS, accounts, and more — for hotels of all sizes.</p>
+      <div class="cards-grid">
+        <div class="feat-card pms-1"><div class="icon">🏨</div><h4>Front Office</h4><p>Reservations, check-in/out, room management & guest services.</p></div>
+        <div class="feat-card pms-2"><div class="icon">🍽️</div><h4>Point of Sale</h4><p>Restaurant & bar POS with KOT, billing & kitchen display.</p></div>
+        <div class="feat-card pms-3"><div class="icon">🛏️</div><h4>Housekeeping</h4><p>Room status, maintenance, lost & found & task management.</p></div>
+        <div class="feat-card pms-4"><div class="icon">💰</div><h4>Accounts Receivable</h4><p>Direct billing, invoicing, payment posting & aging analysis.</p></div>
+        <div class="feat-card pms-5"><div class="icon">📦</div><h4>Purchase & Inventory</h4><p>Procurement, stock tracking & supplier management.</p></div>
+        <div class="feat-card pms-6"><div class="icon">📊</div><h4>Dynamic Reports</h4><p>200+ built-in reports with real-time insights & analytics.</p></div>
+      </div>
+      <div style="margin-top:36px;text-align:center;"><a class="btn-teal" onclick="showPage('pms')">Explore Hotel PMS →</a></div>
+    </div>
+  </section>
+
+  <!-- WHY US -->
+  <section class="why-dark">
+    <div class="section-inner">
+      <div class="section-label" style="color:#7fa8ff;">Why Choose Us</div>
+      <h2 class="section-title" style="color:#fff;">Built for Businesses Like Yours</h2>
+      <p class="section-sub" style="color:#aab4cc;">We understand the SME and hospitality ecosystem — limited budgets, lean teams, and big ambitions.</p>
+      <div class="why-grid">
+        <div class="why-card"><div class="icon">💡</div><h4>SME-First Design</h4><p>Every product is designed keeping small business workflows and budgets in mind.</p></div>
+        <div class="why-card"><div class="icon">☁️</div><h4>Cloud Based</h4><p>Access your software from anywhere — no servers, no IT maintenance needed.</p></div>
+        <div class="why-card"><div class="icon">🤝</div><h4>Dedicated Support</h4><p>On-site implementation, training, and ongoing support from our expert team.</p></div>
+        <div class="why-card"><div class="icon">💰</div><h4>Affordable Pricing</h4><p>Transparent, competitive pricing with flexible payment options.</p></div>
+        <div class="why-card"><div class="icon">🔒</div><h4>Data Security</h4><p>Enterprise-grade security and regular backups to keep your data safe.</p></div>
+        <div class="why-card"><div class="icon">🌐</div><h4>One Partner, Two Divisions</h4><p>ERP and Hotel PMS — all under one trusted brand.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact-section" style="background:#fff;">
+    <div class="section-inner">
+      <div class="section-label blue">Contact Us</div>
+      <h2 class="section-title">Let's Grow Together</h2>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <h3>Get in Touch</h3>
+          <p>Whether you're interested in our ERP software or Hotel PMS, our team is ready to understand your needs and offer the best solution.</p>
+          <div class="contact-detail"><div class="ci">📍</div> Chennai, Tamil Nadu, India</div>
+          <div class="contact-detail"><div class="ci">📞</div> <a href="tel:+918438571741" style="color:#1565c0;font-weight:600;">+91 84385 71741</a></div>
+          <div class="contact-detail"><div class="ci">✉️</div> info@suntechinnovations.in</div>
+          <div class="contact-detail"><div class="ci">🕐</div> Mon–Sat, 9:00 AM – 6:00 PM</div>
+          <div class="contact-detail"><div class="ci">💬</div> <a href="https://wa.me/918438571741" target="_blank" style="color:#25D366;font-weight:600;">WhatsApp Us</a></div>
+        </div>
+        <div class="contact-form">
+          <form action="https://formspree.io/f/mvzwjwvb" method="POST" onsubmit="document.getElementById('contact-success').style.display='block';setTimeout(()=>document.getElementById('contact-success').style.display='none',5000)">
+            <input type="hidden" name="form-name" value="contact"/>
+            <div class="form-row"><label>Full Name</label><input type="text" name="name" placeholder="Your name" required/></div>
+            <div class="form-row"><label>Phone Number</label><input type="tel" name="phone" placeholder="+91 XXXXX XXXXX" required/></div>
+            <div class="form-row"><label>Email Address</label><input type="email" name="email" placeholder="you@company.com" required/></div>
+            <div class="form-row"><label>I'm interested in</label><select name="interest"><option>ERP Software</option><option>Hotel PMS</option><option>Both</option></select></div>
+            <div class="form-row"><label>Message</label><textarea name="message" placeholder="Tell us about your business and requirements..."></textarea></div>
+            <button type="submit" class="submit-btn-blue">Send Enquiry →</button>
+            <div id="contact-success" style="display:none;background:#e8f5e9;color:#2e7d32;padding:12px;border-radius:8px;margin-top:12px;font-weight:600;">✅ Thank you! We will contact you shortly.</div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <img src="https://i.ibb.co/M5PkkSD5/0c2932a5-8f21-44b1-9703-c07bc0a08f35.png" alt="Logo" style="height:40px;" onerror="this.style.display='none'"/>
+            ☀️ Sun Tech Innovations
+          </div>
+          <p>Empowering businesses across India with smart ERP software and Hotel PMS solutions since 2004.</p>
+          <div class="social-links" style="margin-top:16px;">
+            <div class="social-btn">📘</div>
+            <div class="social-btn">📸</div>
+            <div class="social-btn">💼</div>
+            <div class="social-btn">🐦</div>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <a onclick="showPage('home')">Home</a>
+          <a onclick="showPage('erp')">ERP Software</a>
+          <a onclick="showPage('pms')">Hotel PMS</a>
+          <a onclick="document.getElementById('contact-section').scrollIntoView({behavior:'smooth'})">Contact Us</a>
+        </div>
+        <div class="footer-col">
+          <h4>Our Products</h4>
+          <a onclick="showPage('erp')">ERP Software</a>
+          <a onclick="showPage('erp')">CRM Software</a>
+          <a onclick="showPage('erp')">HRMS Software</a>
+          <a onclick="showPage('pms')">Hotel PMS</a>
+          <a onclick="showPage('pms')">Restaurant POS</a>
+          <a onclick="showPage('pms')">Housekeeping</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <div class="footer-contact">📍 Chennai, Tamil Nadu</div>
+          <div class="footer-contact">📞 <a href="tel:+918438571741" style="color:#7fa8ff;">+91 84385 71741</a></div>
+          <div class="footer-contact">✉️ info@suntechinnovations.in</div>
+          <div class="footer-contact">🕐 Mon–Sat, 9AM–6PM</div>
+          <div class="footer-contact">💬 <a href="https://wa.me/918438571741" target="_blank" style="color:#25D366;">WhatsApp Us</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Sun Tech Innovations. All rights reserved.</p>
+        <p style="font-size:.8rem;color:#666;">Designed with ❤️ for Indian Businesses</p>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- ==================== ERP PAGE ==================== -->
+<div id="erp-page" class="page">
+  <section style="min-height:100vh;display:flex;align-items:center;padding:100px 5% 60px;background:linear-gradient(135deg,#0a1628 0%,#0d2147 50%,#0a1628 100%);position:relative;overflow:hidden;">
+    <div style="position:absolute;top:0;left:0;right:0;bottom:0;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;"></div>
+    <div style="max-width:1100px;margin:auto;width:100%;position:relative;z-index:1;">
+      <div style="display:inline-block;background:rgba(255,255,255,.1);color:#7fa8ff;border:1px solid rgba(255,255,255,.2);padding:6px 18px;border-radius:20px;font-size:.82rem;font-weight:700;margin-bottom:20px;">🖥️ Sun Tech Innovations — Software Division</div>
+      <h1 style="font-size:2.8rem;font-weight:800;color:#fff;line-height:1.2;margin-bottom:18px;max-width:700px;">Complete Business Management Software for <span style="color:#f57c00;">Growing Companies</span></h1>
+      <p style="color:rgba(255,255,255,.8);font-size:1.05rem;line-height:1.8;max-width:650px;margin-bottom:16px;">Streamline your entire business using integrated ERP, CRM, HRMS, and Warehouse Management solutions from Sun Tech Innovations.</p>
+      <p style="color:rgba(255,255,255,.7);font-size:.95rem;line-height:1.7;max-width:650px;margin-bottom:24px;">Automate operations, improve productivity, and gain real-time visibility across every department.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:36px;">
+        <span style="background:rgba(21,101,192,.3);color:#7fa8ff;padding:6px 16px;border-radius:20px;font-size:.85rem;font-weight:600;border:1px solid rgba(21,101,192,.4);">✔ ERP</span>
+        <span style="background:rgba(21,101,192,.3);color:#7fa8ff;padding:6px 16px;border-radius:20px;font-size:.85rem;font-weight:600;border:1px solid rgba(21,101,192,.4);">✔ CRM</span>
+        <span style="background:rgba(21,101,192,.3);color:#7fa8ff;padding:6px 16px;border-radius:20px;font-size:.85rem;font-weight:600;border:1px solid rgba(21,101,192,.4);">✔ HRMS</span>
+        <span style="background:rgba(21,101,192,.3);color:#7fa8ff;padding:6px 16px;border-radius:20px;font-size:.85rem;font-weight:600;border:1px solid rgba(21,101,192,.4);">✔ Warehouse Software</span>
+      </div>
+      <div style="display:flex;gap:14px;flex-wrap:wrap;">
+        <a class="btn-blue" onclick="document.getElementById('erp-demo').scrollIntoView({behavior:'smooth'})">📅 Book Free Consultation</a>
+        <a style="border:2px solid rgba(255,255,255,.4);color:#fff;padding:11px 26px;border-radius:7px;font-weight:600;font-size:.95rem;cursor:pointer;" onclick="document.getElementById('erp-demo').scrollIntoView({behavior:'smooth'})">🖥️ Request Software Demo</a>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:48px;">
+        <div style="text-align:center;"><div style="font-size:1.8rem;font-weight:800;color:#f57c00;">500+</div><div style="font-size:.78rem;color:rgba(255,255,255,.6);margin-top:4px;">Businesses Powered</div></div>
+        <div style="text-align:center;"><div style="font-size:1.8rem;font-weight:800;color:#f57c00;">20+</div><div style="font-size:.78rem;color:rgba(255,255,255,.6);margin-top:4px;">Years Experience</div></div>
+        <div style="text-align:center;"><div style="font-size:1.8rem;font-weight:800;color:#f57c00;">98%</div><div style="font-size:.78rem;color:rgba(255,255,255,.6);margin-top:4px;">Client Satisfaction</div></div>
+        <div style="text-align:center;"><div style="font-size:1.8rem;font-weight:800;color:#f57c00;">30</div><div style="font-size:.78rem;color:rgba(255,255,255,.6);margin-top:4px;">Days Go-Live</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#f0f4ff;">
+    <div class="section-inner" style="text-align:center;">
+      <h2 style="font-size:1.6rem;font-weight:800;color:#0d1b4b;letter-spacing:1px;margin-bottom:16px;">ONE PLATFORM. TOTAL BUSINESS CONTROL.</h2>
+      <p style="color:#555;font-size:1rem;line-height:1.8;max-width:700px;margin:0 auto 28px;">Managing multiple systems creates confusion, errors, and delays. Our integrated software ecosystem connects all business functions into one unified platform.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-top:36px;">
+        <div style="background:#fff;border-radius:12px;padding:24px;box-shadow:0 2px 12px rgba(21,101,192,.08);border-top:3px solid #1565c0;text-align:center;"><div style="font-size:2rem;margin-bottom:10px;">🔗</div><h4 style="font-weight:700;color:#0d1b4b;margin-bottom:6px;">Integrated</h4><p style="font-size:.85rem;color:#666;">All modules connected seamlessly</p></div>
+        <div style="background:#fff;border-radius:12px;padding:24px;box-shadow:0 2px 12px rgba(21,101,192,.08);border-top:3px solid #f57c00;text-align:center;"><div style="font-size:2rem;margin-bottom:10px;">⚡</div><h4 style="font-weight:700;color:#0d1b4b;margin-bottom:6px;">Real-Time</h4><p style="font-size:.85rem;color:#666;">Live data across all departments</p></div>
+        <div style="background:#fff;border-radius:12px;padding:24px;box-shadow:0 2px 12px rgba(21,101,192,.08);border-top:3px solid #1565c0;text-align:center;"><div style="font-size:2rem;margin-bottom:10px;">📱</div><h4 style="font-weight:700;color:#0d1b4b;margin-bottom:6px;">Mobile Ready</h4><p style="font-size:.85rem;color:#666;">Access anywhere, anytime</p></div>
+        <div style="background:#fff;border-radius:12px;padding:24px;box-shadow:0 2px 12px rgba(21,101,192,.08);border-top:3px solid #f57c00;text-align:center;"><div style="font-size:2rem;margin-bottom:10px;">🇮🇳</div><h4 style="font-weight:700;color:#0d1b4b;margin-bottom:6px;">GST Ready</h4><p style="font-size:.85rem;color:#666;">Built for Indian compliance</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="erp-modules" style="background:#fff;">
+    <div class="section-inner">
+      <div class="section-label blue">Our Software Solutions</div>
+      <h2 class="section-title">Four Powerful Software Products</h2>
+      <p class="section-sub">Choose one or all — each solution works standalone or as part of our integrated ecosystem.</p>
+      <div style="background:linear-gradient(135deg,#0a1628,#0d2147);border-radius:16px;padding:36px;margin-bottom:24px;color:#fff;">
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;"><div style="width:56px;height:56px;background:#1565c0;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;">🖥️</div><div><h3 style="font-size:1.3rem;font-weight:800;">ERP SOFTWARE</h3><p style="color:#7fa8ff;font-size:.85rem;">Enterprise Resource Planning</p></div></div>
+        <p style="color:rgba(255,255,255,.8);margin-bottom:20px;">Manage core business operations from a single dashboard.</p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:20px;">
+          <div style="background:rgba(255,255,255,.07);border-radius:8px;padding:12px;font-size:.85rem;">✅ Sales & Billing Management</div>
+          <div style="background:rgba(255,255,255,.07);border-radius:8px;padding:12px;font-size:.85rem;">✅ Inventory & Purchase Control</div>
+          <div style="background:rgba(255,255,255,.07);border-radius:8px;padding:12px;font-size:.85rem;">✅ Accounting & Finance</div>
+          <div style="background:rgba(255,255,255,.07);border-radius:8px;padding:12px;font-size:.85rem;">✅ GST Compliance</div>
+          <div style="background:rgba(255,255,255,.07);border-radius:8px;padding:12px;font-size:.85rem;">✅ Business Reports & Analytics</div>
+          <div style="background:rgba(255,255,255,.07);border-radius:8px;padding:12px;font-size:.85rem;">✅ Multi-Branch Management</div>
+        </div>
+        <div style="background:rgba(245,124,0,.2);border:1px solid rgba(245,124,0,.3);border-radius:8px;padding:10px 16px;display:inline-block;font-size:.85rem;color:#ffb74d;">🏭 Best For: SMEs, Manufacturing, Trading, Logistics</div>
+      </div>
+      <div style="background:linear-gradient(135deg,#1b5e20,#2e7d32);border-radius:16px;padding:36px;margin-bottom:24px;color:#fff;">
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;"><div style="width:56px;height:56px;background:#388e3c;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;">🤝</div><div><h3 style="font-size:1.3rem;font-weight:800;">CRM SOFTWARE</h3><p style="color:#a5d6a7;font-size:.85rem;">Customer Relationship Management</p></div></div>
+        <p style="color:rgba(255,255,255,.8);margin-bottom:20px;">Track leads, manage customers, and increase sales efficiency.</p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:20px;">
+          <div style="background:rgba(255,255,255,.07);border-radius:8px;padding:12px;font-size:.85rem;">✅ Lead Management</div>
+          <div style="background:rgba(255,255,255,.07);border-radius:8px;padding:12px;font-size:.85rem;">✅ Sales Pipeline Tracking</div>
+          <div style="background:rgba(255,255,255,.07);border-radius:8px;padding:12px;font-size:.85rem;">✅ Follow-up Reminders</div>
+          <div style="background:rgba(255,255,255,.07);border-radius:8px;padding:12px;font-size:.85rem;">✅ Customer Communication History</div>
+          <div style="background:rgba(255,255,255,.07);border-radius:8px;padding:12px;font-size:.85rem;">✅ Sales Performance Reports</div>
+          <div style="background:rgba(255,255,255,.07);border-radius:8px;padding:12px;font-size:.85rem;">✅ Deal & Opportunity Tracking</div>
+        </div>
+        <div style="background:rgba(255,255,255,.1);border-radius:8px;padding:10px 16px;display:inline-block;font-size:.85rem;color:#a5d6a7;">💡 Convert more leads into customers</div>
+      </div>
+      <div style="background:linear-gradient(135deg,#4a148c,#6a1b9a);border-radius:16px;padding:36px;margin-bottom:24px;color:#fff;">
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;"><div style="width:56px;height:56px;background:#7b1fa2;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;">👥</div><div><h3 style="font-size:1.3rem;font-weight:800;">HRMS SOFTWARE</h3><p style="color:#ce93d8;font-size:.85rem;">Human Resource Management System</p></div></div>
+        <p style="color:rgba(255,255,255,.8);margin-bottom:20px;">Simplify employee management and HR operations.</p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:20px;">
+          <div style="background:rgba(255,255,255,.07);border-radius:8px;padding:12px;font-size:.85rem;">✅ Employee Database</div>
+          <div style="background:rgba(255,255,255,.07);border-radius:8px;padding:12px;font-size:.85rem;">✅ Attendance & Leave Management</div>
+          <div style="background:rgba(255,255,255,.07);border-radius:8px;padding:12px;font-size:.85rem;">✅ Payroll Processing</div>
+          <div style="background:rgba(255,255,255,.07);border-radius:8px;padding:12px;font-size:.85rem;">✅ Performance Tracking</div>
+          <div style="background:rgba(255,255,255,.07);border-radius:8px;padding:12px;font-size:.85rem;">✅ Employee Self-Service Portal</div>
+          <div style="background:rgba(255,255,255,.07);border-radius:8px;padding:12px;font-size:.85rem;">✅ Compliance & Reports</div>
+        </div>
+        <div style="background:rgba(255,255,255,.1);border-radius:8px;padding:10px 16px;display:inline-block;font-size:.85rem;color:#ce93d8;">💡 Reduce HR manual work significantly</div>
+      </div>
+      <div style="background:linear-gradient(135deg,#e65100,#f57c00);border-radius:16px;padding:36px;color:#fff;">
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;"><div style="width:56px;height:56px;background:rgba(255,255,255,.2);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;">🏭</div><div><h3 style="font-size:1.3rem;font-weight:800;">WAREHOUSE MANAGEMENT SOFTWARE</h3><p style="color:rgba(255,255,255,.8);font-size:.85rem;">WMS</p></div></div>
+        <p style="color:rgba(255,255,255,.9);margin-bottom:20px;">Complete control over inventory movement and warehouse operations.</p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:20px;">
+          <div style="background:rgba(255,255,255,.1);border-radius:8px;padding:12px;font-size:.85rem;">✅ Stock Tracking in Real-Time</div>
+          <div style="background:rgba(255,255,255,.1);border-radius:8px;padding:12px;font-size:.85rem;">✅ Warehouse & Location Management</div>
+          <div style="background:rgba(255,255,255,.1);border-radius:8px;padding:12px;font-size:.85rem;">✅ Barcode Integration</div>
+          <div style="background:rgba(255,255,255,.1);border-radius:8px;padding:12px;font-size:.85rem;">✅ Dispatch & Receiving Management</div>
+          <div style="background:rgba(255,255,255,.1);border-radius:8px;padding:12px;font-size:.85rem;">✅ Inventory Alerts</div>
+          <div style="background:rgba(255,255,255,.1);border-radius:8px;padding:12px;font-size:.85rem;">✅ Order Fulfillment Tracking</div>
+        </div>
+        <div style="background:rgba(0,0,0,.15);border-radius:8px;padding:10px 16px;display:inline-block;font-size:.85rem;color:rgba(255,255,255,.9);">🏭 Best For: Logistics, Distribution, Manufacturing & E-commerce</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="why-dark">
+    <div class="section-inner">
+      <div class="section-label" style="color:#7fa8ff;">Why Choose Us</div>
+      <h2 class="section-title" style="color:#fff;">Why Businesses Choose Our Software</h2>
+      <div class="why-grid">
+        <div class="why-card"><div class="icon">🔗</div><h4>Integrated Ecosystem</h4><p>All departments work together seamlessly — no data silos.</p></div>
+        <div class="why-card"><div class="icon">🇮🇳</div><h4>Designed for Indian Businesses</h4><p>Built for SME workflows and Indian compliance requirements.</p></div>
+        <div class="why-card"><div class="icon">🔧</div><h4>Customizable Modules</h4><p>Choose only what your business needs.</p></div>
+        <div class="why-card"><div class="icon">📈</div><h4>Scalable Architecture</h4><p>Software grows with your business expansion.</p></div>
+        <div class="why-card"><div class="icon">🤝</div><h4>Dedicated Implementation Support</h4><p>Training, onboarding, and ongoing assistance included.</p></div>
+        <div class="why-card"><div class="icon">💰</div><h4>Affordable Pricing</h4><p>Enterprise-grade software at SME-friendly pricing.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#f7f9ff;">
+    <div class="section-inner">
+      <div class="section-label blue">Industries We Serve</div>
+      <h2 class="section-title">Built for Your Industry</h2>
+      <div class="ind-grid">
+        <div class="ind-card"><div class="icon">🚚</div><h4>Logistics & Transport</h4><p>Fleet, dispatch & warehouse management.</p></div>
+        <div class="ind-card"><div class="icon">🏭</div><h4>Manufacturing</h4><p>Production, BOM, job costing & shop floor.</p></div>
+        <div class="ind-card"><div class="icon">🛒</div><h4>Trading & Distribution</h4><p>Purchase, sales, inventory & billing.</p></div>
+        <div class="ind-card"><div class="icon">📦</div><h4>Warehousing</h4><p>Stock management & order fulfillment.</p></div>
+        <div class="ind-card"><div class="icon">🏪</div><h4>Retail & Wholesale</h4><p>POS, inventory & customer management.</p></div>
+        <div class="ind-card"><div class="icon">🛠️</div><h4>Service Organizations</h4><p>CRM, project tracking & billing.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#fff;">
+    <div class="section-inner">
+      <div class="section-label blue">Implementation Process</div>
+      <h2 class="section-title">How Implementation Works</h2>
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-content"><h4>Business Requirement Analysis</h4><p>Our team understands your workflows, pain points, and business goals.</p></div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-content"><h4>Software Demonstration</h4><p>Live demo tailored to your industry and business processes.</p></div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-content"><h4>Customization & Setup</h4><p>We configure the software to match your exact business requirements.</p></div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-content"><h4>User Training</h4><p>Hands-on training for your team — department by department.</p></div></div>
+        <div class="step"><div class="step-num">5</div><div class="step-content"><h4>Go-Live & Support</h4><p>On-site go-live support and ongoing assistance after launch.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#0d1b4b;">
+    <div class="section-inner">
+      <div class="section-label" style="color:#7fa8ff;">Business Results</div>
+      <h2 class="section-title" style="color:#fff;">Business Results You Can Expect</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-top:36px;">
+        <div style="background:rgba(255,255,255,.06);border-radius:12px;padding:24px;border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;gap:16px;"><span style="font-size:1.8rem;">⚡</span><p style="color:#fff;font-weight:600;">40% reduction in manual work</p></div>
+        <div style="background:rgba(255,255,255,.06);border-radius:12px;padding:24px;border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;gap:16px;"><span style="font-size:1.8rem;">📊</span><p style="color:#fff;font-weight:600;">Improved operational visibility</p></div>
+        <div style="background:rgba(255,255,255,.06);border-radius:12px;padding:24px;border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;gap:16px;"><span style="font-size:1.8rem;">🎯</span><p style="color:#fff;font-weight:600;">Faster decision-making</p></div>
+        <div style="background:rgba(255,255,255,.06);border-radius:12px;padding:24px;border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;gap:16px;"><span style="font-size:1.8rem;">🤝</span><p style="color:#fff;font-weight:600;">Better customer management</p></div>
+        <div style="background:rgba(255,255,255,.06);border-radius:12px;padding:24px;border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;gap:16px;"><span style="font-size:1.8rem;">📦</span><p style="color:#fff;font-weight:600;">Accurate inventory tracking</p></div>
+        <div style="background:rgba(255,255,255,.06);border-radius:12px;padding:24px;border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;gap:16px;"><span style="font-size:1.8rem;">👥</span><p style="color:#fff;font-weight:600;">Organized workforce management</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-blue" id="erp-demo">
+    <h2>Ready to Digitize Your Business Operations?</h2>
+    <p>Transform your organization with integrated business software from Sun Tech Innovations.</p>
+    <div class="cta-form">
+      <form action="https://formspree.io/f/mvzwjwvb" method="POST">
+        <div class="form-row"><label>Full Name</label><input type="text" name="name" placeholder="Your name" required/></div>
+        <div class="form-row"><label>Company Name</label><input type="text" name="company" placeholder="Your company" required/></div>
+        <div class="form-row"><label>Phone Number</label><input type="tel" name="phone" placeholder="+91 XXXXX XXXXX" required/></div>
+        <div class="form-row"><label>Software Interested In</label><select name="software"><option>ERP Software</option><option>CRM Software</option><option>HRMS Software</option><option>Warehouse Management</option><option>All Solutions</option></select></div>
+        <div class="form-row"><label>Industry</label><select name="industry"><option>Manufacturing</option><option>Logistics & Transport</option><option>Trading & Distribution</option><option>Warehousing</option><option>Retail & Wholesale</option><option>Service Organization</option><option>Other</option></select></div>
+        <div class="form-row"><label>Your Requirement</label><textarea name="requirement" placeholder="Briefly describe your business and requirements..."></textarea></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:6px;">
+          <button type="submit" class="submit-btn-white">📅 Schedule Free Demo</button>
+          <a href="tel:+918438571741" style="background:rgba(255,255,255,.15);color:#fff;padding:13px;border-radius:7px;font-size:.95rem;font-weight:700;cursor:pointer;text-align:center;border:1px solid rgba(255,255,255,.3);display:block;">📞 Talk to Our Expert</a>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand"><div class="footer-logo">☀️ Sun Tech Innovations</div><p>Integrated business software for SMEs and growing companies across India.</p></div>
+        <div class="footer-col"><h4>Quick Links</h4><a onclick="showPage('home')">Home</a><a onclick="document.getElementById('erp-modules').scrollIntoView({behavior:'smooth'})">Software Solutions</a><a onclick="showPage('pms')">Hotel PMS</a><a onclick="document.getElementById('erp-demo').scrollIntoView({behavior:'smooth'})">Book Demo</a></div>
+        <div class="footer-col"><h4>Our Software</h4><a>ERP Software</a><a>CRM Software</a><a>HRMS Software</a><a>Warehouse Management</a></div>
+        <div class="footer-col"><h4>Contact</h4><div class="footer-contact">📞 <a href="tel:+918438571741" style="color:#7fa8ff;">+91 84385 71741</a></div><div class="footer-contact">✉️ info@suntechinnovations.in</div><div class="footer-contact">💬 <a href="https://wa.me/918438571741" target="_blank" style="color:#25D366;">WhatsApp Us</a></div></div>
+      </div>
+      <div class="footer-bottom"><p>© 2026 Sun Tech Innovations. All rights reserved.</p></div>
+    </div>
+  </footer>
+</div>
+
+<!-- ==================== HOTEL PMS PAGE ==================== -->
+<div id="pms-page" class="page">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div style="position:absolute;top:0;left:0;right:0;bottom:0;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;"></div>
+    <div class="hero-inner">
+      <div style="flex:1;">
+        <div style="display:inline-block;background:rgba(255,255,255,.1);color:#80cbc4;border:1px solid rgba(255,255,255,.2);padding:6px 18px;border-radius:20px;font-size:.82rem;font-weight:700;margin-bottom:20px;">🏨 Sun Tech Innovations — Hotel PMS Division</div>
+        <h1 style="font-size:2.8rem;font-weight:800;color:#fff;line-height:1.2;margin-bottom:18px;">Complete Hotel Management Software for <span style="color:#4dd0e1;">Modern Hospitality</span></h1>
+        <p style="color:rgba(255,255,255,.8);font-size:1rem;line-height:1.8;margin-bottom:16px;">A cloud-based, AI-integrated Property Management System covering Front Office, Housekeeping, POS, Accounts, F&B Costing, and more.</p>
+        <p style="color:rgba(255,255,255,.7);font-size:.9rem;line-height:1.7;margin-bottom:24px;">Manage your entire hotel operations from a single platform — reduce manual work, improve guest experience, and maximize revenue.</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:28px;">
+          <span style="background:rgba(0,137,123,.3);color:#80cbc4;padding:5px 14px;border-radius:20px;font-size:.82rem;font-weight:600;border:1px solid rgba(0,137,123,.4);">✔ Front Office</span>
+          <span style="background:rgba(0,137,123,.3);color:#80cbc4;padding:5px 14px;border-radius:20px;font-size:.82rem;font-weight:600;border:1px solid rgba(0,137,123,.4);">✔ POS</span>
+          <span style="background:rgba(0,137,123,.3);color:#80cbc4;padding:5px 14px;border-radius:20px;font-size:.82rem;font-weight:600;border:1px solid rgba(0,137,123,.4);">✔ Housekeeping</span>
+          <span style="background:rgba(0,137,123,.3);color:#80cbc4;padding:5px 14px;border-radius:20px;font-size:.82rem;font-weight:600;border:1px solid rgba(0,137,123,.4);">✔ Accounts</span>
+          <span style="background:rgba(0,137,123,.3);color:#80cbc4;padding:5px 14px;border-radius:20px;font-size:.82rem;font-weight:600;border:1px solid rgba(0,137,123,.4);">✔ F&B Costing</span>
+        </div>
+        <div style="display:flex;gap:14px;flex-wrap:wrap;">
+          <a class="btn-teal" onclick="document.getElementById('pms-demo').scrollIntoView({behavior:'smooth'})">📅 Book Free Demo</a>
+          <a style="border:2px solid rgba(255,255,255,.4);color:#fff;padding:11px 26px;border-radius:7px;font-weight:600;font-size:.95rem;cursor:pointer;" onclick="document.getElementById('pms-modules').scrollIntoView({behavior:'smooth'})">🏨 Explore Modules</a>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:40px;">
+          <div style="text-align:center;"><div style="font-size:1.6rem;font-weight:800;color:#4dd0e1;">200+</div><div style="font-size:.75rem;color:rgba(255,255,255,.6);">Hotels Served</div></div>
+          <div style="text-align:center;"><div style="font-size:1.6rem;font-weight:800;color:#4dd0e1;">8+</div><div style="font-size:.75rem;color:rgba(255,255,255,.6);">Modules</div></div>
+          <div style="text-align:center;"><div style="font-size:1.6rem;font-weight:800;color:#4dd0e1;">200+</div><div style="font-size:.75rem;color:rgba(255,255,255,.6);">Reports</div></div>
+          <div style="text-align:center;"><div style="font-size:1.6rem;font-weight:800;color:#4dd0e1;">24/7</div><div style="font-size:.75rem;color:rgba(255,255,255,.6);">Support</div></div>
+        </div>
+      </div>
+      <div class="hero-visual-pms">
+        <div class="hero-card-pms t1"><div class="icon">🏨</div><h4>Front Office</h4><p>Reservations & check-in</p></div>
+        <div class="hero-card-pms t2"><div class="icon">🍽️</div><h4>Restaurant POS</h4><p>Food & beverage billing</p></div>
+        <div class="hero-card-pms t1"><div class="icon">🛏️</div><h4>Housekeeping</h4><p>Room status & tasks</p></div>
+        <div class="hero-card-pms t2"><div class="icon">📊</div><h4>200+ Reports</h4><p>Real-time analytics</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KEY ADVANTAGES -->
+  <section style="background:#f0faf9;">
+    <div class="section-inner">
+      <div class="section-label teal">Key Advantages</div>
+      <h2 class="section-title">Why Choose Sun Tech Hotel PMS?</h2>
+      <p class="section-sub">Modern cloud PMS built for hotels of all sizes — from boutique properties to large hotel chains.</p>
+      <div class="adv-grid">
+        <div class="adv-card"><div class="icon">☁️</div><h4>100% Cloud Based</h4><p>Access from anywhere — no servers, no IT infrastructure needed. Automatic updates always keep you current.</p></div>
+        <div class="adv-card"><div class="icon">🤖</div><h4>AI-Powered Efficiency</h4><p>Smart automation for reservations, housekeeping triage, demand forecasting, and guest personalization.</p></div>
+        <div class="adv-card"><div class="icon">📊</div><h4>200+ Dynamic Reports</h4><p>Generate insights instantly — occupancy, revenue, F&B, housekeeping, and more from desktop or mobile.</p></div>
+        <div class="adv-card"><div class="icon">⚡</div><h4>Rapid Implementation</h4><p>Go live in days, not months. Simple setup with dedicated on-site implementation support.</p></div>
+        <div class="adv-card"><div class="icon">💰</div><h4>No Upfront Costs</h4><p>Pay-as-you-go model removes expensive upfront license fees and hardware investments.</p></div>
+        <div class="adv-card"><div class="icon">🔗</div><h4>Open Integrations</h4><p>API-first connectors sync OTAs, payment gateways, channel managers, and third-party apps seamlessly.</p></div>
+        <div class="adv-card"><div class="icon">🏨</div><h4>Multi-Property Support</h4><p>Manage multiple hotels from a single dashboard with unified reporting and control.</p></div>
+        <div class="adv-card"><div class="icon">🛡️</div><h4>Secure & Compliant</h4><p>Zero-downtime releases, automatic compliance updates, and enterprise-grade data security.</p></div>
+        <div class="adv-card"><div class="icon">😊</div><h4>Better Guest Experience</h4><p>Faster check-in, personalized service, WhatsApp communication & higher guest satisfaction.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODULES -->
+  <section id="pms-modules" style="background:#fff;">
+    <div class="section-inner">
+      <div class="section-label teal">PMS Modules</div>
+      <h2 class="section-title">Comprehensive Hotel Management Modules</h2>
+      <p class="section-sub">Eight powerful modules covering every aspect of hotel operations — all in one integrated platform.</p>
+      <div class="mod-grid-pms">
+        <div class="mod-card-pms"><div class="mod-header-pms"><div class="mod-icon-pms">🏨</div><h4>Front Office</h4></div><p>Complete front desk management with real-time availability, reservations, check-in/out, and guest communication.</p><div class="mod-tags-pms"><span class="tag-pms">Reservations</span><span class="tag-pms">Check-In/Out</span><span class="tag-pms">Room Management</span><span class="tag-pms">Night Audit</span><span class="tag-pms">Tariff Management</span><span class="tag-pms">Bill Settlement</span></div></div>
+        <div class="mod-card-pms"><div class="mod-header-pms"><div class="mod-icon-pms">🍽️</div><h4>Point of Sale (POS)</h4></div><p>Multi-restaurant and bar management with KOT, billing, happy hours, and kitchen display system.</p><div class="mod-tags-pms"><span class="tag-pms">Restaurant POS</span><span class="tag-pms">KOT/KDS</span><span class="tag-pms">Split Bills</span><span class="tag-pms">Happy Hours</span><span class="tag-pms">Room Posting</span><span class="tag-pms">Bar Management</span></div></div>
+        <div class="mod-card-pms"><div class="mod-header-pms"><div class="mod-icon-pms">🛏️</div><h4>Housekeeping</h4></div><p>Live room status management, maintenance logging, AI-powered complaint triage, and task allocation.</p><div class="mod-tags-pms"><span class="tag-pms">Room Status</span><span class="tag-pms">Maintenance</span><span class="tag-pms">Lost & Found</span><span class="tag-pms">Task Management</span><span class="tag-pms">Guest Audit</span></div></div>
+        <div class="mod-card-pms"><div class="mod-header-pms"><div class="mod-icon-pms">💰</div><h4>Accounts Receivable</h4></div><p>Company, travel agent, and group AR management with automated statements and payment posting.</p><div class="mod-tags-pms"><span class="tag-pms">Direct Billing</span><span class="tag-pms">Invoicing</span><span class="tag-pms">Payment Posting</span><span class="tag-pms">Aging Analysis</span><span class="tag-pms">Credit Control</span></div></div>
+        <div class="mod-card-pms"><div class="mod-header-pms"><div class="mod-icon-pms">🍳</div><h4>F&B Costing</h4></div><p>Recipe management with granular cost controls, usage tracking, waste reduction, and profitability analytics.</p><div class="mod-tags-pms"><span class="tag-pms">Recipe Management</span><span class="tag-pms">Cost Control</span><span class="tag-pms">Waste Tracking</span><span class="tag-pms">Profitability</span></div></div>
+        <div class="mod-card-pms"><div class="mod-header-pms"><div class="mod-icon-pms">📦</div><h4>Purchase & Inventory</h4></div><p>Automated procurement from requisition to approval with real-time stock visibility and AI-driven demand insights.</p><div class="mod-tags-pms"><span class="tag-pms">Purchase Orders</span><span class="tag-pms">Stock Tracking</span><span class="tag-pms">Supplier Mgmt</span><span class="tag-pms">AI Demand</span></div></div>
+        <div class="mod-card-pms"><div class="mod-header-pms"><div class="mod-icon-pms">🤝</div><h4>CRM & Guest Relations</h4></div><p>Guest profiles, VIP management, interaction tracking, feedback collection, and AI-powered sentiment analysis.</p><div class="mod-tags-pms"><span class="tag-pms">Guest Profiles</span><span class="tag-pms">VIP Management</span><span class="tag-pms">Feedback</span><span class="tag-pms">Loyalty</span></div></div>
+        <div class="mod-card-pms"><div class="mod-header-pms"><div class="mod-icon-pms">📊</div><h4>Dynamic Reports</h4></div><p>200+ built-in reports with AI-powered instant insights — available on desktop, tablet, and mobile.</p><div class="mod-tags-pms"><span class="tag-pms">200+ Reports</span><span class="tag-pms">Occupancy</span><span class="tag-pms">Revenue</span><span class="tag-pms">Mobile Reports</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY TEAL -->
+  <section class="why-teal">
+    <div class="section-inner">
+      <div class="section-label" style="color:#80cbc4;">Why Sun Tech PMS</div>
+      <h2 class="section-title">Built for Modern Hospitality</h2>
+      <p class="section-sub" style="color:#80cbc4;">Everything you need to run a modern hotel — in one platform.</p>
+      <div class="why-grid">
+        <div class="why-card-teal"><div class="icon">☁️</div><h4>Zero Hardware</h4><p>100% cloud — no servers to buy, patch, or maintain. Ever.</p></div>
+        <div class="why-card-teal"><div class="icon">🤖</div><h4>AI-Powered</h4><p>Smart automation ready from day one across all operations.</p></div>
+        <div class="why-card-teal"><div class="icon">📈</div><h4>Flexible & Scalable</h4><p>From boutique hotels to multi-property chains with unified control.</p></div>
+        <div class="why-card-teal"><div class="icon">😊</div><h4>Better Guest Experience</h4><p>Faster responses, personalization, higher satisfaction and loyalty.</p></div>
+        <div class="why-card-teal"><div class="icon">💬</div><h4>WhatsApp Integration</h4><p>Communicate with guests via WhatsApp — templates, chat & status updates.</p></div>
+        <div class="why-card-teal"><div class="icon">🔗</div><h4>OTA & Channel Manager</h4><p>Sync with Booking.com, Expedia, MakeMyTrip & more automatically.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INDUSTRIES -->
+  <section style="background:#f0faf9;">
+    <div class="section-inner">
+      <div class="section-label teal">Property Types</div>
+      <h2 class="section-title">Perfect for Every Property Type</h2>
+      <div class="ind-grid">
+        <div class="ind-card"><div class="icon">🏨</div><h4>Hotels</h4><p>Business & leisure hotels of all sizes.</p></div>
+        <div class="ind-card"><div class="icon">🏖️</div><h4>Resorts</h4><p>Beach, hill station & eco resorts.</p></div>
+        <div class="ind-card"><div class="icon">🏠</div><h4>Guest Houses</h4><p>Small properties & boutique stays.</p></div>
+        <div class="ind-card"><div class="icon">🏢</div><h4>Service Apartments</h4><p>Extended stay & corporate housing.</p></div>
+        <div class="ind-card"><div class="icon">🍽️</div><h4>Restaurants</h4><p>Standalone & hotel restaurants.</p></div>
+        <div class="ind-card"><div class="icon">🏗️</div><h4>Club & Banquets</h4><p>Events, banquet halls & clubs.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- IMPLEMENTATION -->
+  <section style="background:#fff;">
+    <div class="section-inner">
+      <div class="section-label teal">Implementation</div>
+      <h2 class="section-title">Go Live in Days, Not Months</h2>
+      <p class="section-sub">A simple, fast implementation process to get your hotel up and running quickly.</p>
+      <div class="steps">
+        <div class="step"><div class="step-num" style="background:#00897b;">1</div><div class="step-content"><h4>Property Analysis</h4><p>Our team understands your hotel operations, room types, rate plans, and specific requirements.</p></div></div>
+        <div class="step"><div class="step-num" style="background:#00897b;">2</div><div class="step-content"><h4>System Configuration</h4><p>We set up room inventory, rate plans, user roles, POS outlets, and all property-specific settings.</p></div></div>
+        <div class="step"><div class="step-num" style="background:#00897b;">3</div><div class="step-content"><h4>Data Migration</h4><p>Existing reservations, guest profiles, and financial data are migrated safely into the new system.</p></div></div>
+        <div class="step"><div class="step-num" style="background:#00897b;">4</div><div class="step-content"><h4>Staff Training</h4><p>Hands-on training for front desk, housekeeping, F&B, and accounts teams for confident daily use.</p></div></div>
+        <div class="step"><div class="step-num" style="background:#00897b;">5</div><div class="step-content"><h4>Go-Live & 24/7 Support</h4><p>On-site support during go-live and round-the-clock assistance to ensure smooth operations.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-teal" id="pms-demo">
+    <h2>Ready to Modernize Your Hotel Operations?</h2>
+    <p>Book a free demo and see how Sun Tech Hotel PMS transforms your property management.</p>
+    <div class="cta-form-teal">
+      <form action="https://formspree.io/f/mvzwjwvb" method="POST">
+        <div class="form-row"><label>Full Name</label><input type="text" name="name" placeholder="Your name" required/></div>
+        <div class="form-row"><label>Hotel / Property Name</label><input type="text" name="hotel" placeholder="Your property name" required/></div>
+        <div class="form-row"><label>Phone Number</label><input type="tel" name="phone" placeholder="+91 XXXXX XXXXX" required/></div>
+        <div class="form-row"><label>Property Type</label><select name="type"><option>Hotel</option><option>Resort</option><option>Guest House</option><option>Service Apartment</option><option>Restaurant</option><option>Club / Banquet</option></select></div>
+        <div class="form-row"><label>Number of Rooms</label><select name="rooms"><option>Less than 20</option><option>20–50 Rooms</option><option>50–100 Rooms</option><option>100–200 Rooms</option><option>200+ Rooms</option></select></div>
+        <div class="form-row"><label>Your Requirement</label><textarea name="requirement" placeholder="Tell us about your property and what you need..."></textarea></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:6px;">
+          <button type="submit" class="submit-btn-white-teal">📅 Book Free Demo</button>
+          <a href="tel:+918438571741" style="background:rgba(255,255,255,.15);color:#fff;padding:13px;border-radius:7px;font-size:.95rem;font-weight:700;cursor:pointer;text-align:center;border:1px solid rgba(255,255,255,.3);display:block;">📞 Talk to Expert</a>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand"><div class="footer-logo">☀️ Sun Tech Innovations — Hotel PMS</div><p>Cloud-based hotel management software for modern hospitality businesses across India.</p></div>
+        <div class="footer-col"><h4>Quick Links</h4><a onclick="showPage('home')">Home</a><a onclick="document.getElementById('pms-modules').scrollIntoView({behavior:'smooth'})">PMS Modules</a><a onclick="showPage('erp')">ERP Software</a><a onclick="document.getElementById('pms-demo').scrollIntoView({behavior:'smooth'})">Book Demo</a></div>
+        <div class="footer-col"><h4>PMS Modules</h4><a>Front Office</a><a>Restaurant POS</a><a>Housekeeping</a><a>Accounts Receivable</a><a>F&B Costing</a><a>Dynamic Reports</a></div>
+        <div class="footer-col"><h4>Contact</h4><div class="footer-contact">📞 <a href="tel:+918438571741" style="color:#7fa8ff;">+91 84385 71741</a></div><div class="footer-contact">✉️ info@suntechinnovations.in</div><div class="footer-contact">💬 <a href="https://wa.me/918438571741" target="_blank" style="color:#25D366;">WhatsApp Us</a></div></div>
+      </div>
+      <div class="footer-bottom"><p>© 2026 Sun Tech Innovations. All rights reserved.</p></div>
+    </div>
+  </footer>
+</div>
+
+<script>
+  function showPage(page){
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+    if(page==='home') document.getElementById('home').classList.add('active');
+    else if(page==='erp') document.getElementById('erp-page').classList.add('active');
+    else if(page==='pms') document.getElementById('pms-page').classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+</script>
+</body>
+</html>
